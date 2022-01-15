@@ -1,0 +1,106 @@
+openapi: "3.0.0"
+info:
+  version: 1.0.0
+  title: products
+servers:
+  - url: http://localhost:8010
+paths:
+  /products:
+    get:
+      summary: Gets All Products
+      operationId: getAllProducts
+      tags:
+        - products
+      responses:
+        200:
+          description: get all products
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Products"
+        400:
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        500:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    post:
+      summary: Add new product
+      operationId: addProduct
+      tags:
+        - products
+      requestBody:
+        description: Add new Product
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Product'
+      responses:
+        201:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Product'
+        400:
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        500:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+components:
+  schemas:
+    Product:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+          minLength: 1
+          x-validations: "@NotBlank"
+        description:
+          type: string
+        price:
+          type: string
+        createdAt:
+          type: string
+          format: epoch
+        owner:
+          type: string
+          minLength: 1
+        images:
+          type: string
+      required:
+        - name
+        - owner
+    Products:
+      type: array
+      items:
+        $ref: "#/components/schemas/Product"
+    Error:
+      type: object
+      properties:
+        error_code:
+          type: integer
+        timestamp:
+          type: integer
+          format: int64
+        message:
+          type: string
+      required:
+        - error_code
+        - message
