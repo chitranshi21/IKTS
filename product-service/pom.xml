@@ -90,7 +90,7 @@
 							<modelPackage>com.ubuy.productservice.model</modelPackage>
 							<modelNamePrefix>Swagger</modelNamePrefix>
 							<configOptions>
-								<dateLibrary>java8</dateLibrary>
+								<dateLibrary>java17</dateLibrary>
 								<interfaceOnly>true</interfaceOnly>
 								<additionalModelTypeAnnotations>@lombok.Builder @lombok.NoArgsConstructor @lombok.AllArgsConstructor</additionalModelTypeAnnotations>
 							</configOptions>
@@ -113,7 +113,15 @@
 					</excludes>
 				</configuration>
 			</plugin>
-		</plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>17</source>
+                    <target>17</target>
+                </configuration>
+            </plugin>
+        </plugins>
 	</build>
 
 </project>
