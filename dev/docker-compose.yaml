@@ -1,0 +1,21 @@
+version: "3.9"
+services:
+  Product:
+    image: 'product-service:0.0.1-SNAPSHOT'
+    ports:
+      - '8010:8010'
+    depends_on:
+      MongoDB:
+        condition: service_healthy
+    environment:
+      - MONGODB_URL=MongoDB
+      - MONGODB_PORT=27017
+  MongoDB:
+    image: 'mongo'
+    ports:
+      - '27017:27017'
+    healthcheck:
+      test: ["CMD-SHELL", "pgrep mongod"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
