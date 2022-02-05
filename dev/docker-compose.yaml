@@ -1,6 +1,6 @@
 version: "3.9"
 services:
-  Product:
+  product:
     image: 'product-service:0.0.1-SNAPSHOT'
     ports:
       - '8010:8010'
@@ -19,3 +19,18 @@ services:
       interval: 10s
       timeout: 5s
       retries: 5
+  prometheus:
+    image: prom/prometheus:latest
+    volumes:
+            - ./prometheus/prometheus.yaml:/etc/prometheus/prometheus.yaml
+    ports:
+      - 9090:9090
+  grafana:
+    image: grafana/grafana:latest
+    volumes:
+            - ./grafana/grafana.ini:/etc/grafana/grafana.ini
+            - ./grafana/datasource.yaml:/etc/grafana/provisioning/datasources/datasource.yaml
+    ports:
+      - 3000:3000
+    links:
+            - prometheus
