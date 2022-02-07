@@ -79,7 +79,7 @@ components:
         createdAt:
           type: string
           format: epoch
-        owner:
+        seller:
           type: string
           minLength: 1
         images:
