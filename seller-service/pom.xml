@@ -100,7 +100,7 @@
 						</goals>
 						<configuration>
 							<inputSpec>
-								${project.basedir}/src/main/resources/products.yaml
+								${project.basedir}/src/main/resources/seller.yaml
 							</inputSpec>
 							<generatorName>spring</generatorName>
 							<apiPackage>com.ikts.sellerservice.api</apiPackage>

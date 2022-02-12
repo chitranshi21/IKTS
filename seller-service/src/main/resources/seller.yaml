@@ -1,0 +1,106 @@
+openapi: "3.0.0"
+info:
+  version: 1.0.0
+  title: seller
+servers:
+  - url: http://localhost:8020
+paths:
+  /seller:
+    get:
+      summary: Gets All sellers
+      operationId: getAllSellers
+      tags:
+        - sellers
+      responses:
+        200:
+          description: get all sellers
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Sellers"
+        400:
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        500:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    post:
+      summary: Add new seller
+      operationId: addSeller
+      tags:
+        - sellers
+      requestBody:
+        description: Add new seller
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Seller'
+      responses:
+        201:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Seller'
+        400:
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        500:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+components:
+  schemas:
+    Seller:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+          minLength: 1
+          x-validations: "@NotBlank"
+        uniqueName:
+          type: string
+          minLength: 1
+          x-validations: "@NotBlank"
+        description:
+          type: string
+        createdAt:
+          type: string
+          format: epoch
+        currentStatus:
+          type: string
+          minLength: 1
+          x-validations: "@NotBlank"
+      required:
+        - name
+    Sellers:
+      type: array
+      items:
+        $ref: "#/components/schemas/Seller"
+    Error:
+      type: object
+      properties:
+        error_code:
+          type: integer
+        timestamp:
+          type: integer
+          format: int64
+        message:
+          type: string
+      required:
+        - error_code
+        - message
