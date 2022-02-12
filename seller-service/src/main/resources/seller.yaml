@@ -1,23 +1,23 @@
 openapi: "3.0.0"
 info:
   version: 1.0.0
-  title: products
+  title: seller
 servers:
-  - url: http://localhost:8010
+  - url: http://localhost:8020
 paths:
-  /products:
+  /seller:
     get:
-      summary: Gets All Products
-      operationId: getAllProducts
+      summary: Gets All sellers
+      operationId: getAllSellers
       tags:
-        - products
+        - sellers
       responses:
         200:
-          description: get all products
+          description: get all sellers
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Products"
+                $ref: "#/components/schemas/Sellers"
         400:
           description: Bad request
           content:
@@ -31,24 +31,24 @@ paths:
               schema:
                 $ref: '#/components/schemas/Error'
     post:
-      summary: Add new product
-      operationId: addProduct
+      summary: Add new seller
+      operationId: addSeller
       tags:
-        - products
+        - sellers
       requestBody:
-        description: Add new Product
+        description: Add new seller
         required: true
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/Product'
+              $ref: '#/components/schemas/Seller'
       responses:
         201:
           description: OK
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Product'
+                $ref: '#/components/schemas/Seller'
         400:
           description: Bad Request
           content:
@@ -63,7 +63,7 @@ paths:
                 $ref: '#/components/schemas/Error'
 components:
   schemas:
-    Product:
+    Seller:
       type: object
       properties:
         id:
@@ -72,25 +72,25 @@ components:
           type: string
           minLength: 1
           x-validations: "@NotBlank"
-        description:
+        uniqueName:
           type: string
-        price:
+          minLength: 1
+          x-validations: "@NotBlank"
+        description:
           type: string
         createdAt:
           type: string
           format: epoch
-        seller:
+        currentStatus:
           type: string
           minLength: 1
-        images:
-          type: string
+          x-validations: "@NotBlank"
       required:
         - name
-        - owner
-    Products:
+    Sellers:
       type: array
       items:
-        $ref: "#/components/schemas/Product"
+        $ref: "#/components/schemas/Seller"
     Error:
       type: object
       properties:
