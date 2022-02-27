@@ -6,7 +6,7 @@ spring:
     mongodb:
       host: ${MONGODB_URL:localhost}
       port: ${MONGODB_PORT:27017}
-      database: seller
+      database: sellers
       auto-index-creation: true
 
 
