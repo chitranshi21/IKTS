@@ -10,6 +10,16 @@ services:
     environment:
       - MONGODB_URL=MongoDB
       - MONGODB_PORT=27017
+  seller:
+    image: 'seller-service:0.0.1-SNAPSHOT'
+    ports:
+      - '8020:8020'
+    depends_on:
+      MongoDB:
+        condition: service_healthy
+    environment:
+      - MONGODB_URL=MongoDB
+      - MONGODB_PORT=27017
   MongoDB:
     image: 'mongo'
     ports:
