@@ -1,0 +1,21 @@
+server:
+  port: 9001
+management:
+  endpoints:
+    gateway:
+      enabled: true
+    web:
+      exposure:
+        include: "*"
+spring:
+  cloud:
+    gateway:
+      routes:
+        - id: todo-service
+          uri: https://httpbin.org/
+          predicates:
+            - Path=/todo/**
+          filters:
+            - RewritePath=/todo(?<segment>/?.*), $\{segment}
+      metrices:
+        enabled: true
