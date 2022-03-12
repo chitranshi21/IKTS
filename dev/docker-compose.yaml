@@ -20,6 +20,10 @@ services:
     environment:
       - MONGODB_URL=MongoDB
       - MONGODB_PORT=27017
+  gateway:
+    image: 'api-gateway:0.0.1-SNAPSHOT'
+    ports:
+      - '9001:9001'
   MongoDB:
     image: 'mongo'
     ports:
